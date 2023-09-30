@@ -8,7 +8,7 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import messagebox
-
+import Machine_Learning_Solution
 
 fig = None
 
@@ -37,13 +37,15 @@ def remove_noisy_peaks(pulses, found_peaks):
 def draw_peaks(pulses, y_axis, peak_pos, peak_h):
     global fig
     print(f"First peak position: {peak_pos[0]}, height: {peak_h[0]}")
+    peak_data = tk.Label(root, text=f"First peak position: {peak_pos[0]}, height: {peak_h[0]}", font=("Arial", 12))
+    peak_data.pack(pady=10)
     fig = plt.figure(figsize=(8, 6))
     ax = fig.subplots()
     ax.plot(pulses, y_axis)
     ax.scatter(peak_pos[0], peak_h[0], color='r', s=15, marker='D', label='Maxima')
     ax.set_xlabel('Pulses')
     ax.set_ylabel('Amplitude')
-    ax.set_title('Pulse Data Analysis')
+    ax.set_title('Signal Data Analysis')
     return fig
 
 
@@ -127,7 +129,7 @@ def plot_graph():
 
 # Create a simple Tkinter GUI
 root = tk.Tk()
-root.title("Pulse Data Analyzer")
+root.title("First Peak Detector")
 root.geometry("800x600")  # Set initial window size
 
 # Input fields for row and column values
@@ -140,6 +142,10 @@ column_label = tk.Label(root, text="Starting Column (e.g., 6):")
 column_label.pack()
 column_entry = tk.Entry(root)
 column_entry.pack(pady=(0, 10))
+
+
+def machine_learning():
+    Machine_Learning_Solution.ml_sol();
 
 
 def open_file():
@@ -161,8 +167,5 @@ def open_file():
 
 open_button = tk.Button(root, text="Open File", command=open_file)
 open_button.pack(pady=(0, 20))
-
-reset_button = tk.Button(root, text="Reset Application", command=reset_application)
-reset_button.pack(pady=(0, 20))
 
 root.mainloop()
